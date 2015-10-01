@@ -1,0 +1,129 @@
+﻿<phone:PhoneApplicationPage 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
+	x:Class="TimeTableApp.PanoramaPage1"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+	FontSize="{StaticResource PhoneFontSizeNormal}"
+	Foreground="{StaticResource PhoneForegroundBrush}"
+	SupportedOrientations="Portrait" Orientation="Portrait"
+	shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="editDetails" IsVisible="True" IsMenuEnabled="True">
+            <!--<shell:ApplicationBarIconButton IconUri="/icons/appbar.edit.rest.png" Text="edit" Click="ApplicationBarIconButton_Click" x:Name="editAppBarIcon" />-->
+            <shell:ApplicationBarIconButton IconUri="/icons/appbar.addnotes.rest.png" Text="add notes" Click="ApplicationBarIconButton_Click_1" />
+            <!--<shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+            -->
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+	
+	<!--LayoutRoot contains the root grid where all other page content is placed-->
+	<Grid x:Name="LayoutRoot">
+		<controls:Panorama Title="{Binding ShortName}" x:Name="panoramaControl">
+            <controls:Panorama.TitleTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" FontWeight="Bold" FontSize="100" Margin="0,50,0,0" >
+                    	<TextBlock.Foreground>
+                    				<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+                    	</TextBlock.Foreground>               
+					</TextBlock>
+                </DataTemplate>
+            </controls:Panorama.TitleTemplate>
+            <controls:Panorama.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="60"/>
+                </DataTemplate>
+            </controls:Panorama.HeaderTemplate>
+			<controls:PanoramaItem Header="notes">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock x:Name="emptyNotesTB" Text="You don't seem to have any notes added for this subject. Tap on the 'add' button on the bottom to add notes." FontSize="22" TextWrapping="Wrap" Visibility="Collapsed" Margin="10,0,0,15">
+                        	<TextBlock.Foreground>
+                        		<SolidColorBrush Color="{StaticResource PhoneBorderColor}"/>
+                        	</TextBlock.Foreground>
+                        </TextBlock>
+                        <ListBox x:Name ="notesListbox" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="535">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,10">-->
+                                    <Grid Margin="5,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <toolkit:ContextMenuService.ContextMenu>
+                                            <toolkit:ContextMenu>
+                                                <toolkit:MenuItem Header="Delete" Tag="{Binding}" Tap="MenuItem_Tap" />
+                                            </toolkit:ContextMenu>
+                                        </toolkit:ContextMenuService.ContextMenu>
+										<TextBlock Text=". " FontWeight="ExtraBold" FontSize="25" Grid.Column="0"/>
+										<TextBlock Text="{Binding}" Grid.Column="1" Margin="0,0,0,0" FontSize="30" TextWrapping="Wrap" />
+                                    <!--</StackPanel>-->
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:PanoramaItem>
+			<controls:PanoramaItem Header="details">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".4*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock TextWrapping="Wrap" Text="Full Name:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBox x:Name="fullNameTB" InputScope="Text" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" Text="{Binding LongName, Mode=TwoWay}" VerticalAlignment="Top"/>
+                            <TextBlock TextWrapping="Wrap" Text="Description:" Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBox x:Name="descriptionTB" InputScope="Text" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Text="{Binding Description, Mode=TwoWay}" VerticalAlignment="Top" AcceptsReturn="True"/>
+                        </Grid>
+                    	<StackPanel Orientation="Horizontal" Width="420">
+                    		
+                    	</StackPanel>
+                        <StackPanel Orientation="Horizontal" Width="420">
+                            
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:PanoramaItem>
+		</controls:Panorama>
+	</Grid>
+</phone:PhoneApplicationPage>

@@ -1,0 +1,68 @@
+﻿<phone:PhoneApplicationPage 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+	x:Class="TimeTableApp.HowTo"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+	FontSize="{StaticResource PhoneFontSizeNormal}"
+	Foreground="{StaticResource PhoneForegroundBrush}"
+	Orientation="Portrait"
+	shell:SystemTray.IsVisible="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<!--TitlePanel contains the name of the application and page title-->
+		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+			<TextBlock x:Name="ApplicationTitle" Text="THE TIME TABLE APP" Style="{StaticResource PhoneTextNormalStyle}"/>
+			<TextBlock x:Name="PageTitle" Text="how to..." Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+		</StackPanel>
+		
+			<Grid x:Name="ContentPanel" Margin="12,0,12,0" Grid.Row="1" >
+	            <ScrollViewer>
+	                <StackPanel>
+	                    <TextBlock TextWrapping="Wrap"><Run Text="This app is designed to help you manage your everyday schedules that normal calendars cant. By allowing you to show repeating activities in a weekly fashion, like a lecture, you can manage and even track various tasks easily."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap"><Run Text="To get started, first create what are known as subjects. These can be common across many days or even within the same day on the time table. They help you keep information about one particular subject in one place, even if its activity spans across or repeat for many instances in the week. To create a subject, click on the  '+' button on the main screen and again the '+' sign on select subject page."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap"><Run Text="It is important to note that the 'Name' will be used to identify the subject throughout the app and cannot be changed once set. The 'Full Name' is optional. Select the duration of the subject."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap"><Run Text="To add activities on the time table, tap the '+' button on the main screen, select the subject that will be representing that activity. Enter the 'Time' when that activity takes place, and the day on which this particular entry will be added."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap"><Run Text="You can also click on one of the activities on the main screen to enter the subjects sub menu, where you can save notes across all the activities of the week in one place."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap"><Run Text="Thank you for downloading The Time Table App."/><LineBreak/><Run/></TextBlock>
+					    <TextBlock TextWrapping="Wrap" Text="Be sure to check out the other apps by Nisarg Shah."/>
+	                </StackPanel>
+	            </ScrollViewer>
+        	</Grid>
+
+		<!--ContentPanel - place additional content here-->
+	</Grid>
+</phone:PhoneApplicationPage>
